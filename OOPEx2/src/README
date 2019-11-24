@@ -1,0 +1,67 @@
+nadav223
+
+
+
+
+
+File description:
+AggressiveShip.java - An aggressive ship type according to the manual
+BasherShip.java - A basher ship type according to the manual
+DrunkardShip.java - A drunkard ship type according to the manual  
+HumanShip.java - A human ship type according to the manual 
+RunnerShip.java - A runner ship type according to the manual 
+SpaceShip.java - The base spaceship class which has most of the spaceships logic
+SpaceShipFactory.java - The class that handles the creation of spaceships according
+to the command line input
+SpecialShip.java - The special ship type, a combination of the basher ship and the aggressive ship
+so it is very hard to destroy and quite hard to dodge.
+
+Extensibility:
+The code is quite extensible, in the case you want to add a new ship type,
+all that's needed is to create a new class with a doAction method which is the only abstract method
+that should be different the varying ships, it is quite easy to add anything since most of the base game
+is implemented in the SpaceShip abstract base class.
+
+Modularity:
+The code isn't as modular as it could've been, in order to remove some code duplication in the
+various non human ship classes, I created static methods which perform the certain type of turns
+each ship has.
+That choice was made so the different ships which had no real difference other than their behavior
+(No different fields or methods, Non human ships) could use other ships behavior, or same methods such
+as the move to closest, startTurn, endTurn and so on.
+
+Intuitiveness and understandability:
+In my opinion the code is quite easy to understand, there are many constants used instead of magic numbers
+that have clear names, and quite a bit of documentation, so it should be quite clear.
+The SpaceShip class contains most of the game logic, which makes sense since in this game all of the
+ships are practically the same in a lot of aspects, so they should share as much rule logic as possible.
+
+Representation of the classes and their relationships:
+The classes are built in a way to makes sense, since all of the "Regular" space ship logic is
+implemented in the spaceship class there is only so little left to implement in the various
+ship types.
+There isn't much of a relationship between the ship types, but they can all use the logic other
+ships use as long as that ship type is basically a standard ship with no differing field or methods
+e.g in the special ship class, i used the aggressive ship logic and the basher ship logic to create 
+a tougher more annoying ship to play against that makes the game more challenging / similar to playing
+versus human opponents which would both shield and fire at you.
+
+DrunkardShip:
+This ship is all about randomness.
+The very nature of it's decisions are all based on random numbers and chance (A certain chance
+to accelerate, certain chance to fire based on some in game factors, certain chance to teleport
+and so on).
+I implemented that way so it wouldn't be so random that it wouldn't make any sense, but would have
+some pattern that is based on some other factors.
+
+SpecialShip:
+The special ship is a combo of the Basher ship and the Aggressive ship.
+It was very easy to implement since I made the other classes in a way to could
+use other ship's logic when the class had no fields or methods.
+This ship is an actual threat, since it will chase you and try to bash you 
+which also makes it real hard to destroy.
+
+Notes:
+The SpaceShip class is an abstract class, since it shouldn't ever be instantiated
+but it does contain various fields relevant to all of the spaceships and methods.
+It only has one abstract method, since that was the one method all ships had a different implementation.
