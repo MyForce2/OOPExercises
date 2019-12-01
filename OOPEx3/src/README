@@ -1,0 +1,18 @@
+nadav223
+
+
+
+
+Locker implementation:
+I chose to store the locker data in a map data structure, it was the simplest way
+to store the information, and a hash map has an O(1) insertion / deletion on average
+and since all of the items have a unique string specifying their type,
+it's a good choice to use a hash map to store the items, different string are good keys for a hash
+map and its much simpler for the programmer to use a map, than lets say a couple of lists, or a list
+containing a Pair class.
+
+LongTermStorage implementation:
+I chose to store the long term storage data in a map as well, for the same reasons I chose to in
+the Locker class, In addition, the map clear function is a very simple one to use to clear the inventory
+
+
