@@ -32,14 +32,14 @@ public class LockerTest {
 		assertTrue("Locker class add item doesn't work with null values", locker.addItem(null, 1) == Locker.OPEARATION_FAILED_ERROR);
 		assertTrue("Locker class add item doesn't work with 0 values", locker.addItem(items[0], 0) == Locker.OPERATION_SUCCESSFUL);
 		assertTrue("Locker class add item doesn't work with negative values", locker.addItem(items[0], -3) == Locker.OPEARATION_FAILED_ERROR);
-		Item baseball = ItemFactory.createSingleItem("baseball bat");
-		Item football = ItemFactory.createSingleItem("football");
+		Item baseball = ItemFactory.createSingleItem(ItemFactory.getConstraintPairs()[0][0].getType());
+		Item football = ItemFactory.createSingleItem(ItemFactory.getConstraintPairs()[0][1].getType());
 		locker.removeItem(football, locker.getItemCount(football.getType()));
 		assertTrue("Locker class add item doesn't work properly ", locker.addItem(baseball, 1) == Locker.OPERATION_SUCCESSFUL);
 		assertTrue("Locker doesn't move to LTS unit when needed", locker.addItem(baseball, 4) == Locker.OPERATION_SUCCESSFUL_WARNING);
 		assertTrue("Locker", locker.addItem(football, 1) == Locker.CONSTRAINTS_ERROR);
 		// Fill up the lts unit
-		lts.addItems(baseball, 496);
+		lts.addItem(baseball, 496);
 		// Now moving objects to the lts units should fail
 		assertTrue("Failed", locker.addItem(baseball, 3) == Locker.OPEARATION_FAILED_ERROR);
 		for(int i = 0; i < items.length; i++) 

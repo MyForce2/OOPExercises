@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 	LockerTest.class,
 	LongTermTest.class,
-	SpaceshipTest.class
+	SpaceshipTest.class,
 })
 
 

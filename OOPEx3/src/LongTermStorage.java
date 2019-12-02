@@ -40,7 +40,7 @@ public class LongTermStorage {
 	 * @param n The amount of items that should be added of the given item type
 	 * @return 0 if the operation was successful, -1 if the operation failed
 	 */
-	public int addItems(Item item, int n) {
+	public int addItem(Item item, int n) {
 		if(item == null || n < 0) {
 			System.out.println(Locker.DEFAULT_ERROR);
 			return Locker.OPEARATION_FAILED_ERROR;

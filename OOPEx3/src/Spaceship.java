@@ -1,20 +1,64 @@
 import oop.ex3.spaceship.ItemFactory;
 
-public class SpaceShip {
+public class Spaceship {
 	
+	/**
+	 * Return code for when a locker creation was successful
+	 */
 	public static final int LOCKER_CREATION_SUCCESSFUL = 0;
+	
+	/**
+	 * Return code error for when a non valid crew id was given
+	 */
 	public static final int NON_VALID_ID_ERROR = -1;
+	
+	/**
+	 * Return code error for when a non valid capacity was given 
+	 */
 	public static final int NON_VALID_CAPACITY_ERROR = -2;
+	
+	/**
+	 * Return code error for when the max amount of lockers was created
+	 */
 	public static final int MAX_LOCKERS_ERROR = -3;
 	
+	/**
+	 * This spaceship name
+	 */
 	private final String name;
+	
+	/**
+	 * An array containing all of the crew ids
+	 */
 	private final int[] crewIds;
+	
+	/**
+	 * An array containing all of lockers
+	 */
 	private final Locker[] lockers;
+	
+	/**
+	 * The max amount of lockers in this ship, size of lockers array
+	 */
 	private final int numOfLockers;
+	
+	/**
+	 * The amount of created lockers so far
+	 */
 	private int createdLockers;
+	
+	/**
+	 * The LTS unit used by this ship
+	 */
 	private final LongTermStorage lts;
 	
-	public SpaceShip(String name, int[] crewIDs, int numOfLockers) {
+	/**
+	 * SpaceShip ctor
+	 * @param name The ship's name
+	 * @param crewIDs List of crew ids
+	 * @param numOfLockers The max amount of lockers for this ship
+	 */
+	public Spaceship(String name, int[] crewIDs, int numOfLockers) {
 		this.name = name;
 		this.numOfLockers = numOfLockers;
 		createdLockers = 0;
@@ -39,14 +83,14 @@ public class SpaceShip {
 	 */
 	public int createLocker(int crewID, int capacity) {
 		if(!isIdValid(crewID))
-			return SpaceShip.NON_VALID_ID_ERROR;
+			return Spaceship.NON_VALID_ID_ERROR;
 		if(capacity <= 0)
-			return SpaceShip.NON_VALID_CAPACITY_ERROR;
+			return Spaceship.NON_VALID_CAPACITY_ERROR;
 		if(createdLockers >= numOfLockers)
-			return SpaceShip.MAX_LOCKERS_ERROR;
+			return Spaceship.MAX_LOCKERS_ERROR;
 		lockers[createdLockers] = new Locker(lts, capacity, ItemFactory.getConstraintPairs());
 		createdLockers++;
-		return SpaceShip.LOCKER_CREATION_SUCCESSFUL;
+		return Spaceship.LOCKER_CREATION_SUCCESSFUL;
 	}
 	
 	/**

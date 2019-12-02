@@ -109,7 +109,7 @@ public class Locker {
 		if(n == 0) 
 			return Locker.OPERATION_SUCCESSFUL;
 		if(doesItemViolateConstraints(item)) {
-			System.out.println(Locker.DEFAULT_ERROR + " Problem: the locker cannot contains itmes of type " 
+			System.out.println(Locker.DEFAULT_ERROR + " Problem: the locker cannot contains items of type " 
 					+ item.getType() + ", as it contains a contradicting item");
 			return Locker.CONSTRAINTS_ERROR;
 		}
@@ -169,8 +169,8 @@ public class Locker {
 	private int handleMoveToLTSStorage(Item item, int n) {
 		int totalItems = getItemCount(item.getType()) + n;
 		int n1 = getAmountToMoveToLTS(item, n);
-		if(lts.addItems(item, n1) == Locker.OPEARATION_FAILED_ERROR) {
-			System.out.println(DEFAULT_ERROR + "Problem: no room for " + n1 + " Items of type " + item.getType());
+		if(lts.addItem(item, n1) == Locker.OPEARATION_FAILED_ERROR) {
+			System.out.println(DEFAULT_ERROR + " Problem: no room for " + n1 + " items of type " + item.getType());
 			return Locker.OPEARATION_FAILED_ERROR;
 		}
 		inventory.put(item.getType(), totalItems - n1);

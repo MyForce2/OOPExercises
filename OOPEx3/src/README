@@ -15,4 +15,14 @@ LongTermStorage implementation:
 I chose to store the long term storage data in a map as well, for the same reasons I chose to in
 the Locker class, In addition, the map clear function is a very simple one to use to clear the inventory
 
-
+BoopingSite class:
+getHotelsInCityByRating - This method uses another method to get the array containing the hotels in
+the given city, just so the code look nicer.
+It then uses the function Arrays.sort in the Arrays class which takes in an array and sorts it in an 
+ascending order using a Comparator of your choice, in this case we use StarRatingComparator which compares
+according to the rules given for this method.
+This type of design which is also used in the other methods of this class, (getHotelsByProximity,
+getHotelsInCityByProximity) is very modular and easy to use, in order to change the the sorting,
+all the programmer has to do is change the various comparator classes or use a different one.
+Using the method Arrays.sort is also the most reliable way to sort an array quickly, since it will most
+likely be faster and more reliable than any sorting method implemented by us.
