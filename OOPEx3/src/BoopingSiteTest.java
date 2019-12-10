@@ -23,6 +23,21 @@ public class BoopingSiteTest {
 	 * Path for data set two (empty data set)
 	 */
 	private static final String DATASET_TWO = "hotels_tst2.txt";
+	
+	/**
+	 * A size of an empty array
+	 */
+	private static final int EMPTY_ARRAY_SIZE = 0;
+	
+	/**
+	 * Booping site latitude cap
+	 */
+	private static final int LATITUDE_CAP = 90;
+	
+	/**
+	 * Booping site longitude cap
+	 */
+	private static final int LONGITUDE_CAP = 180;
 
 	
 	/**
@@ -62,13 +77,13 @@ public class BoopingSiteTest {
 			BoopingSite set = sets[i];
 			String setFile = setFiles[i];
 			assertTrue("BS class hotels by rating doesn't return an empty array for a non valid input", 
-					set.getHotelsInCityByRating("").length == BoopingSite.EMPTY_ARRAY_SIZE);
+					set.getHotelsInCityByRating("").length == EMPTY_ARRAY_SIZE);
 			Hotel[] hot = HotelDataset.getHotels(setFile);
 			if(hot.length == 0)
 				return;
 			String cityName = hot[0].getCity();
 			assertTrue("BS class hotels by rating returns an empty array for a valid city name"
-					, set.getHotelsInCityByRating(cityName).length != BoopingSite.EMPTY_ARRAY_SIZE);
+					, set.getHotelsInCityByRating(cityName).length != EMPTY_ARRAY_SIZE);
 			Hotel[] hotels = set.getHotelsInCityByRating(cityName);
 			Hotel prev = hotels[0];
 			for(int j = 1; j < hotels.length; j++) {
@@ -96,34 +111,36 @@ public class BoopingSiteTest {
 			String setFile = setFiles[i];
 			assertTrue("BS class hotels by proximity doesn't return an empty array for a non valid input",
 					set.getHotelsInCityByProximity("", 0, 0).length
-					== BoopingSite.EMPTY_ARRAY_SIZE);
+					== EMPTY_ARRAY_SIZE);
 			Hotel[] hot = HotelDataset.getHotels(setFile);
 			if(hot.length == 0)
 				return;
 			String cityName = hot[0].getCity();
 			assertTrue("BS class hotels by proximity in city  doesn't return an empty array for a non valid input",
-					set.getHotelsInCityByProximity(cityName, BoopingSite.LATITUDE_CAP + 1, 0).length
-					== BoopingSite.EMPTY_ARRAY_SIZE);
+					set.getHotelsInCityByProximity(cityName, LATITUDE_CAP + 1, 0).length
+					== EMPTY_ARRAY_SIZE);
 			assertTrue("BS class hotels by proximity in city doesn't return an empty array for a non valid input",
-					set.getHotelsInCityByProximity(cityName, -BoopingSite.LATITUDE_CAP - 1, 0).length
-					== BoopingSite.EMPTY_ARRAY_SIZE);
+					set.getHotelsInCityByProximity(cityName, -LATITUDE_CAP - 1, 0).length
+					== EMPTY_ARRAY_SIZE);
 			assertTrue("BS class hotels by proximity in city doesn't return an empty array for a non valid input",
-					set.getHotelsInCityByProximity(cityName, 0, BoopingSite.LONGITUDE_CAP + 1).length
-					== BoopingSite.EMPTY_ARRAY_SIZE);
+					set.getHotelsInCityByProximity(cityName, 0, LONGITUDE_CAP + 1).length
+					== EMPTY_ARRAY_SIZE);
 			assertTrue("BS class hotels by proximity in city doesn't return an empty array for a non valid input",
-					set.getHotelsInCityByProximity(cityName, 0, -BoopingSite.LONGITUDE_CAP - 1).length
-					== BoopingSite.EMPTY_ARRAY_SIZE);
+					set.getHotelsInCityByProximity(cityName, 0, -LONGITUDE_CAP - 1).length
+					== EMPTY_ARRAY_SIZE);
 			assertTrue("BS class hotels by proximity in city doesn't return a valid array for valid values", 
 					set.getHotelsInCityByProximity(cityName, 0, 0).length 
-					!= BoopingSite.EMPTY_ARRAY_SIZE);
+					!= EMPTY_ARRAY_SIZE);
 			Hotel[] hotels = set.getHotelsInCityByProximity(cityName, 0.0, 0.0);
 			if(hotels.length == 0)
 				return;
 			Hotel prev = hotels[0];
+			String city = prev.getCity();
 			double prevDistance = DistancePoiComparator.distance(0.0, 0.0, prev.getLatitude(), prev.getLongitude());
 			for(int j = 1; j < hotels.length; j++) {
 				Hotel h = hotels[j];
 				double distance = DistancePoiComparator.distance(0.0, 0.0, h.getLatitude(), h.getLongitude());
+				assertTrue("BS class hotels by proximity in city has different cities in it", city.equals(h.getCity()));
 				assertTrue("BS class hotels by proximity in city isn't sorted correctly", distance >= prevDistance);
 				if(distance == prevDistance) 
 					assertTrue("BS class hotels by proximity in city isn't sorted correctly when "
@@ -144,19 +161,19 @@ public class BoopingSiteTest {
 		for(int i = 0; i < sets.length; i++) {
 			BoopingSite set = sets[i];
 			assertTrue("BS class hotels by proximity doesn't return an empty array for a non valid input",
-					set.getHotelsByProximity(BoopingSite.LATITUDE_CAP + 1, 0).length
-					== BoopingSite.EMPTY_ARRAY_SIZE);
+					set.getHotelsByProximity(LATITUDE_CAP + 1, 0).length
+					== EMPTY_ARRAY_SIZE);
 			assertTrue("BS class hotels by proximity doesn't return an empty array for a non valid input",
-					set.getHotelsByProximity(-BoopingSite.LATITUDE_CAP - 1, 0).length
-					== BoopingSite.EMPTY_ARRAY_SIZE);
+					set.getHotelsByProximity(-LATITUDE_CAP - 1, 0).length
+					== EMPTY_ARRAY_SIZE);
 			assertTrue("BS class hotels by proximity doesn't return an empty array for a non valid input",
-					set.getHotelsByProximity(0, BoopingSite.LONGITUDE_CAP + 1).length
-					== BoopingSite.EMPTY_ARRAY_SIZE);
+					set.getHotelsByProximity(0, LONGITUDE_CAP + 1).length
+					== EMPTY_ARRAY_SIZE);
 			assertTrue("BS class hotels by proximity doesn't return an empty array for a non valid input",
-					set.getHotelsByProximity(0, -BoopingSite.LONGITUDE_CAP - 1).length
-					== BoopingSite.EMPTY_ARRAY_SIZE);
+					set.getHotelsByProximity(0, -LONGITUDE_CAP - 1).length
+					== EMPTY_ARRAY_SIZE);
 			Hotel[] hotels = set.getHotelsByProximity(0.0, 0.0);
-			if(hotels.length == 0)
+			if(hotels.length == EMPTY_ARRAY_SIZE)
 				return;
 			Hotel prev = hotels[0];
 			double prevDistance = DistancePoiComparator.distance(0.0, 0.0, prev.getLatitude(), prev.getLongitude());

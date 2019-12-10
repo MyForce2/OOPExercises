@@ -49,7 +49,7 @@ public class LongTermStorage {
 			return Locker.OPERATION_SUCCESSFUL;
 		int itemsVolume = item.getVolume() * n;
 		if(availableCapacity - itemsVolume < 0) {
-			System.out.println(Locker.DEFAULT_ERROR + "Problem: no room for " + n + " items of type " + item.getType());
+			System.out.println(Locker.DEFAULT_ERROR + " Problem: no room for " + n + " items of type " + item.getType());
 			return Locker.OPEARATION_FAILED_ERROR;
 		}
 		availableCapacity -= itemsVolume;

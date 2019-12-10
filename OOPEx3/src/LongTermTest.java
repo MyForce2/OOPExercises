@@ -10,6 +10,9 @@ public class LongTermTest {
 	
 	private static LongTermStorage lts;
 	
+	private static final int OPERATION_FAILED_ERROR = -1;
+	private static final int OPERATION_SUCCESSFUL = 0;
+
 
 	@BeforeClass
 	public static void createObjects() {
@@ -23,17 +26,17 @@ public class LongTermTest {
 	public void testAddItem() {
 		Item[] items = ItemFactory.createAllLegalItems();
 		lts.resetInventory();
-		assertTrue("LTS class add item doesn't work with null values", lts.addItem(null, 1) == Locker.OPEARATION_FAILED_ERROR);
-		assertTrue("LTS class add item doesn't work with 0 values", lts.addItem(items[0], 0) == Locker.OPERATION_SUCCESSFUL);
-		assertTrue("LTS class add item doesn't work with negative values", lts.addItem(items[0], -3) == Locker.OPEARATION_FAILED_ERROR);
+		assertTrue("LTS class add item doesn't work with null values", lts.addItem(null, 1) == OPERATION_FAILED_ERROR);
+		assertTrue("LTS class add item doesn't work with 0 values", lts.addItem(items[0], 0) == OPERATION_SUCCESSFUL);
+		assertTrue("LTS class add item doesn't work with negative values", lts.addItem(items[0], -3) == OPERATION_FAILED_ERROR);
 		for(int i = 0; i < items.length; i++) {
 			int itemsNumber = 5;
 			int volume = items[i].getVolume() * itemsNumber;
 			int preCapacity = lts.getAvailableCapacity();
 			if(items[i].getVolume() * 5 <= lts.getAvailableCapacity())
-				assertTrue("LTS class doesn't add items when it has available storage", lts.addItem(items[i], itemsNumber) == Locker.OPERATION_SUCCESSFUL);
+				assertTrue("LTS class doesn't add items when it has available storage", lts.addItem(items[i], itemsNumber) == OPERATION_SUCCESSFUL);
 			else
-				assertTrue("LTS class adds items when it doesn't have available storage", lts.addItem(items[i], itemsNumber) == Locker.OPEARATION_FAILED_ERROR);
+				assertTrue("LTS class adds items when it doesn't have available storage", lts.addItem(items[i], itemsNumber) == OPERATION_FAILED_ERROR);
 			assertTrue("LTS class doesn't lower capacity after item addition", lts.getAvailableCapacity() == preCapacity - volume);
 		}
 		lts.resetInventory();
