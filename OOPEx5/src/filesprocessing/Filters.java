@@ -1,0 +1,7 @@
+package filesprocessing;
+
+public enum Filters {
+	GREATER_THAN, BETWEEN, SMALLER_THAN, FILE, 
+	CONTAINS, PREFIX, SUFFIX, WRITABLE, EXECUTABLE,
+	HIDDEN, ALL
+}
