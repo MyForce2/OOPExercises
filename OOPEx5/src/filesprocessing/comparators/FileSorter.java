@@ -7,7 +7,8 @@ import java.util.Comparator;
 
 /**
  * A class used to sort a collection / array of files using a files comparator
- * The files are sorted using a merge sort
+ * The files are sorted using a merge sort, should be used for all utilities needed
+ * during the order section
  */
 public class FileSorter {
 	
@@ -20,6 +21,12 @@ public class FileSorter {
 	 * The comparator used when sorting the underlying files array
 	 */
 	private Comparator<File> cmp;
+	
+	
+	/**
+	 * An empty array of the File type, used when converting a collection to an array
+	 */
+	private static final File[] FILE = new File[]{};
 	
 	/**
 	 * A FileSorter constructor
@@ -37,7 +44,7 @@ public class FileSorter {
 	 * @param cmp The comparator used when sorting the files
 	 */
 	public FileSorter(Collection<File> files, Comparator<File> cmp) {
-		this.files = files.toArray(new File[]{});
+		this.files = files.toArray(FILE);
 		this.cmp = cmp;
 	}
 	
@@ -56,17 +63,18 @@ public class FileSorter {
 	}
 	
 	/**
-	 * A merge sort function
+	 * A merge sort function, sorts the array from smallest to largest according to the comparator
+	 * specified in the constructor
 	 * @param leftIndexLimit The left index boundary of the files array (sub array index 0)
 	 * @param rightIndexLimit The right index boundary of the files array (sub array index length - 1)
 	 */
 	private void mergeSort(int leftIndexLimit, int rightIndexLimit) {
-		if(leftIndexLimit < rightIndexLimit) {
-			int midIndex = (leftIndexLimit + rightIndexLimit) / 2;
-			mergeSort(leftIndexLimit, midIndex);
-			mergeSort(midIndex + 1, rightIndexLimit);
-			mergeArrays(leftIndexLimit, midIndex, rightIndexLimit);
-		}
+		if(rightIndexLimit >= leftIndexLimit)
+			return;
+		int midIndex = (leftIndexLimit + rightIndexLimit) / 2;
+		mergeSort(leftIndexLimit, midIndex);
+		mergeSort(midIndex + 1, rightIndexLimit);
+		mergeArrays(leftIndexLimit, midIndex, rightIndexLimit);
 	}
 	
 	/**
@@ -87,12 +95,12 @@ public class FileSorter {
 		int index = leftIndexLimit;
 		int leftSubArrayIndex = 0, rightSubArrayIndex = 0;
 		
-		// Actual merging of the arrays
+		// Actual merging of the arrays, sorted merge
 		while(leftSubArrayIndex < sizeSubArrayLeft && rightSubArrayIndex < sizeSubArrayRight) {
 			File leftVal = leftSubArray[leftSubArrayIndex];
 			File rightVal = rightSubArray[rightSubArrayIndex];
 			int result = cmp.compare(leftVal, rightVal);
-			if(result <= 0) {
+			if(result > 0) {
 				files[index] = leftVal;
 				leftSubArrayIndex++;
 			} else {
@@ -107,6 +115,16 @@ public class FileSorter {
 		
 		for(int i = rightSubArrayIndex; i < sizeSubArrayRight; i++, index++)
 			files[index] = rightSubArray[i];
+	}
+	
+	/**
+	 * @return A reversed shallow copy of the array stored in the file sorter
+	 */
+	public File[] reverse() {
+		File[] arr = new File[files.length];
+		for(int i = files.length - 1; i > -1; i--) 
+			arr[i] = files[files.length - 1 - i];
+		return arr;
 	}
 	
 	/**
@@ -129,4 +147,5 @@ public class FileSorter {
 	public File[] getFiles() {
 		return files;
 	}
+	
 }
