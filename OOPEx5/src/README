@@ -1,0 +1,45 @@
+nadav223
+
+Design Choices:
+The project is split up to 5 packages, each package other than the original
+file processing package contains a solution to a certain problem the project faces.
+Every filter has it's own filter class that implements the Predicate interface,
+that way it can be used to filter a stream of any collection, so that we can quickly and
+easily get rid of unwanted files.
+In addition the filters package contains a FilterFactory class,
+this class creates a filter object out of a Filters enum value and an ArrayList of strings.
+This way we can easily get the type of filter object we want for a given enum value which corresponds
+to the filter text in the commands file.
+In addition we have the TypeOne error package and TypeTwo error package, these packages contain
+the base class for TypeOne / TypeTwo exceptions and their derived exceptions.
+The comparators package contain various comparators that perform the needed comparisons as
+specified in the commands file, and the FileSorter class which takes in a files array / collection
+then sorts it using the order imposed by the given comparator.
+Eventually we have the fileprocessing basic package, Which uses all of the other utilities 
+in the project so that the "Main" code looks cleaner and is simple to us.
+I chose to design the project in such a way, since when developing it, it is easier
+to test when using a few base modules, each time implementing another step and testing it,
+than to wrap it all up is just some cleanup and small refactoring.
+
+Exception hierarchy:
+Nothing too complicated, Type II error derive from a base TypeTwoException class,
+same with the Type I errors.
+This way, when trying to catch Type II errors we can handle them the same way, since 
+they always end up ending the program, we can handle them the same way, it made sense
+for them to share a base class.
+Same thing applies to the Type I errors, which never end the program and can always be solved,
+it made sense for them to share a base class, since in the end, most of them cause the same problem.
+
+Sorting:
+I implemented a Merge sort function in the FileSorter class.
+MergeSort has a time complexity of O(n * log(n)) which is the best runtime possible
+for a sort, and space complexity of O(n).
+Since we're mostly dealing with a limited number of files, it is unlikely we will need a large array allocated
+for the merge sort function, the recursion calls should also be low since we're dealing with a limited amount of items.
+In this case, it made sense to implement a merge sort, it is easy to implement (relatively) and is much much faster
+than a simple BubbleSort, and should always perform very quickly on these type of data sets.
+
+
+
+
+

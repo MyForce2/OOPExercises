@@ -1,7 +1,8 @@
 FILTER
-writable#YES
+writable#YE
 ORDER
 BADPARAM
 FILTER
-FILTER
+writable#Yk	
 ORDER
+bad

@@ -1,5 +1,8 @@
 package filesprocessing;
 
+/**
+ * Orders enum, contain enum values for all valid orders
+ */
 public enum Orders {
 	ABS, TYPE, SIZE, BAD_ORDER;
 	

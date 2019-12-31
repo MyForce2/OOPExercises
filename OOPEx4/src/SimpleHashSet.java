@@ -1,3 +1,7 @@
+/**
+ * A superclass for implementations of hash-sets 
+ * implementing the SimpleSet interface.
+ */
 public abstract class SimpleHashSet implements SimpleSet {
 	
 	/**
@@ -35,7 +39,7 @@ public abstract class SimpleHashSet implements SimpleSet {
 	 * Constructs a new hash set with the default capacities given in 
 	 * DEFAULT_LOWER_CAPACITY and DEFAULT_HIGHER_CAPACITY
 	 */
-	SimpleHashSet() {
+	public SimpleHashSet() {
 		capacity = SimpleHashSet.INITIAL_CAPACITY;
 		upperLoadFactor = SimpleHashSet.DEFAULT_HIGHER_CAPACITY;
 		lowerLoadFactor = SimpleHashSet.DEFAULT_LOWER_CAPACITY;
@@ -46,7 +50,7 @@ public abstract class SimpleHashSet implements SimpleSet {
 	 * @param upperLoadFactor
 	 * @param lowerLoadFactor
 	 */
-	SimpleHashSet(float upperLoadFactor, float lowerLoadFactor) {
+	public SimpleHashSet(float upperLoadFactor, float lowerLoadFactor) {
 		capacity = SimpleHashSet.INITIAL_CAPACITY;
 		this.upperLoadFactor = upperLoadFactor;
 		this.lowerLoadFactor = lowerLoadFactor;

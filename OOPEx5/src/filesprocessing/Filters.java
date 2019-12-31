@@ -1,14 +1,19 @@
 package filesprocessing;
 
+/**
+ * Filters enum, contains enum values for all valid filters
+ */
 public enum Filters {
 	GREATER_THAN, BETWEEN, SMALLER_THAN, FILE, 
 	CONTAINS, PREFIX, SUFFIX, WRITABLE, EXECUTABLE,
 	HIDDEN, ALL, NO_FILTER;
 	
+	/**
+	 * String return when bad filter name is given to the getFilter method
+	 */
 	public static final String BAD_FILTER = "BAD_FILTER";
 	
 	/**
-	 * 
 	 * @param name The name of the filter as it should appear in the command file
 	 * @return The corresponding filter in the enum, NO_FILTER is returned if the given
 	 * filter name isn't valid

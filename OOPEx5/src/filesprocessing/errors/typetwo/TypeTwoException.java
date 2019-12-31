@@ -8,8 +8,16 @@ public class TypeTwoException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 	
-	public static final String ERROR_MESSAGE = "Type II error: ";
-	public static final String PRINT_ERROR_MESSAGE = "ERROR: ";
+	/**
+	 * A constant for the message text of any exception class derived
+	 * from this class
+	 */
+	public static final String PRINT_ERROR_MESSAGE = "Type II error: ";
+	
+	/**
+	 * Every TypeTwoException print should start with this message
+	 */
+	public static final String ERROR_MESSAGE = "ERROR: ";
 	
 	/**
 	 * Default error message used in the default constructor

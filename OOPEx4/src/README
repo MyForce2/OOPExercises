@@ -1,0 +1,80 @@
+nadav223
+
+How you implemented OpenHashSet's table:
+I implemented OpenHashSet's table, as an array of size capacity containing
+references to objects of LinkedListStr, LinkedListStr is a wrapper class of
+a LinkedList<String> object, that way we can create an array of LinkedList<String>
+indirectly.
+The insertion algorithm is implemented in the following way: (Contains, removal work accordingly)
+We clamp the hashCode of the given str, if the value in arr[clamp(hashCode)] is null,
+we crete a new a LinkedListStr object and add the given str.
+If a LinkedList already exists in the calculated index, we add the the string to the end of the list
+if it isn't already contained in the list.
+
+How you implemented the deletion mechanism in ClosedHashSet:
+Each instance of a ClosedHashSet class, contains a constant string object called DELETED_VAL
+which is create using (DELETED_VAL = new String("")), that way I ensure that object location in memory is unique
+since java uses a constant string table, in the case I had used DELETED_VAL = "", and had another string created
+(String str = "") they would've had the same memory address, this method is very much like creating a new null value, like null as an alias
+for address 0, this is an alias for another address.
+When deleting objects from the table, ClosedHashSet sets the value in arr[index] to be DELETED_VAL
+that way when iterating over the table during contains method, The object can tell if a certain spot was deleted since it points
+to DELETED_VAL, which no other string object can.
+
+OpenHashSet's and ClosedHashSet's performance with data1.txt:
+Insertion:
+OpenHashSet's performs much better then ClosedHashSet's with the data1.txt data, and for obvious reasons.
+When inserting many objects of the same hashcode, the object basically appends all of the
+strings to the end of the linked list in arr[clamp(hash)].
+Java's linked list is a doubly linked list, meaning insertions are O(1), very cheap insertions
+even though all of the objects have the same hashCode which sort of negates point of a hash table.
+In comparison, ClosedHashSet's does very poorly for obvious reasons as well, since all Strings have the
+same hashCode, we have to calculate clamp(hash + ((i + i * i) / 2)) every insertion until we find an available
+spot, which is always when i = size, meaning a lot of time wasted on computing indices, and checking values,
+basically every insertion becomes O(n).
+
+Lookup:
+When looking for a String in OpenHashSet we get very poor performance, since all of the strings have the same hashcode
+we get a table with size - 1 nulls, and 1 very long linked list containing all of the strings.
+Since linked lists all have dynamically allocated nodes, their memory isn't sequential and iterating
+over a very long linked list is much slower than iterating over a very long array / arraylist because of memory locality,
+even though both have O(n) time complexity when looking for objects,
+meaning we get constant cache misses while looking for a string which wastes a lot of compute time fetching memory.
+Looking for an object means going over the list in arr[clamp(hash)] and because of the mentioned reasons is quite slow.
+When looking for a String in ClosedHashSet we get the same problem we got during the insertion of all of the elements,
+they all have the same hashcode, meaning we waste a lot of time computing indices and comparing values hashCode + content.
+
+Strengths and Weaknesses:
+As expected, OpenHashSet does much better than ClosedHashSet when talking about data sets with the same hash.
+Assuming we're using a data set with many collisions, or a hash function with many collision, OpenHashSet does much better,
+at the expense of memory we get much faster insertions than a ClosedHashSet, since using OpenHashSet we're basically getting an almost constant
+O(1) insertion / lookup / removal,  but when there are many collision ClosedHashSet start to perform much closer to O(n), not including all of the multiple operations
+performed when inserting elements.
+When talking about hash functions with almost no collisions, or data sets with low collision rate we should get an O(1) insertion / lookup / removal 
+complexity almost always, meaning we should get faster results.
+Generally speaking, we shouldn't be getting many hash collisions with a good hash function considering we insert random Strings, then ClosedHashSet should be the way
+to go, since it most likely won't do worst than OpenHashSet, and uses less memory, which should help in low memory systems.
+If we were to get many hash collisions, OpenHashSet should do almost the same as a LinkedList, which isn't too bad comparing to
+the very poor results one would get using ClosedHashSet.
+
+How did your implementations compare between themselves:
+OpenHashSet did much better using the first data set, as expected, and CloseHashSet did better using the
+second data set, this would imply ClosedHashSet is much slower, but that mostly applies when talking
+about thousands or more hash collisions, a scenario which isn't very likely.
+
+How did your implementations compare to Java's built in HashSet
+Java's built in HashSet did much better than my implementations when talking about the first data set,
+but performed quite close to my implementations when testing the second data set, very close results for ClosedHashSet
+and HashSet when checking which isn't very surprising.
+
+Did you find java's HashSet performance on data1.txt surprising? Can you explain it?
+Yes, java's HashSet does much much better than OpenHashSet / ClosedHashSet.
+Since we know the hash function used by HashSet is the same function, it should face the same difficulties
+OpenHashSet and ClosedHashSet, but still it performs much faster.
+The few explanations I could think of were: HashMap (Underlying data structure used by HashSet) uses another data structure to
+store the data so that contains operations are much much faster, therefore making the contains operations much faster.
+When inserting elements, assuming HashMap uses probing it could use another data structure to keep the last index for a certain hash so that 
+less comparisons are made, kind of forcing the O(1) insertion.
+If using chaining, it could use a different way to store the chains, making it much faster to read / access the memory and prevent
+the many comparisons.
+
