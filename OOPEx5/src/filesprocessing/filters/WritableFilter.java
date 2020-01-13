@@ -1,6 +1,7 @@
 package filesprocessing.filters;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.function.Predicate;
 
 /**
@@ -14,19 +15,19 @@ public class WritableFilter implements Predicate<File> {
 	/**
 	 * Writable value used in filter
 	 */
-	private boolean writeable;
+	private boolean writable;
 	
 	/**
-	 * WriteableFIlter constructor
+	 * WriteableFilter constructor
 	 * @param writable Value used in test method
 	 */
 	public WritableFilter(boolean writable) {
-		this.writeable = writable;
+		this.writable = writable;
 	}
 
 	@Override
 	public boolean test(File f1) {
-		return f1.canWrite() == writeable;
+		return Files.isWritable(f1.toPath()) == writable;
 	}
 	
 	

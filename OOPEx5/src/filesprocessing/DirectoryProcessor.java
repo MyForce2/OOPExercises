@@ -2,11 +2,9 @@ package filesprocessing;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import filesprocessing.errors.typetwo.InvalidUsageException;
 import filesprocessing.errors.typetwo.TypeTwoException;
-import filesprocessing.errors.typetwo.TypeTwoIOException;
 
 public class DirectoryProcessor {
 	
@@ -30,21 +28,22 @@ public class DirectoryProcessor {
 	
 	
 	public static void main(String[] args) {
+		// DIR = 0
+		// file = 1
+
 		try {
 			if(args.length != 2)
 				throw new InvalidUsageException(TypeTwoException.ERROR_MESSAGE
 						+ "only 2 arguemnts are valid");
-			String path = args[0].startsWith("\"") ? args[0].substring
-					(1, args[0].length() - 1) : args[0];
-			String dir = args[1].startsWith("\"") ? args[1].substring
-					(1, args[1].length() - 1) : args[1];
+			String dir =  args[0];
+			String path =  args[1];
 			CommandFileLoader loader = new CommandFileLoader(path);
 			loader.readFile();
 			ArrayList<File> lst = new ArrayList<File>(getFiles(dir));	
 			SectionParser p = new SectionParser(loader.getSections(), lst);
 			p.parse();
 		} catch (TypeTwoException e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 		}
 		
 	}

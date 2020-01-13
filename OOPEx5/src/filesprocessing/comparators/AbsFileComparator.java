@@ -14,7 +14,7 @@ public class AbsFileComparator implements Comparator<File> {
 	public int compare(File f1, File f2) {
 		String path1 = f1.getAbsolutePath();
 		String path2 = f2.getAbsolutePath();
-		return path2.compareTo(path1);
+		return path1.compareTo(path2);
 	}
 	
 }

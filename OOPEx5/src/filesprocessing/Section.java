@@ -16,6 +16,8 @@ public class Section {
 	 */
 	private String filterText;
 	
+	private int startingLine;
+	
 	/**
 	 * No text, default text for this class
 	 */
@@ -25,10 +27,10 @@ public class Section {
 	 * Section default constructor, initializes both fields to the 
 	 * constant field NO_TEXT
 	 */
-	public Section() {
+	public Section(int startingLine) {
 		orderText = NO_TEXT;
 		filterText = NO_TEXT;
-		
+		this.startingLine = startingLine;
 	}
 
 	
@@ -60,4 +62,8 @@ public class Section {
 		this.filterText = filterText;
 	}
 	
+	
+	public int getStartingLine() {
+		return startingLine;
+	}
 }

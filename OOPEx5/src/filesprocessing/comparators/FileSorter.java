@@ -24,7 +24,8 @@ public class FileSorter {
 	
 	
 	/**
-	 * An empty array of the File type, used when converting a collection to an array
+	 * An empty array of the File type, used when converting a 
+	 * collection to an array
 	 */
 	private static final File[] FILE = new File[]{};
 	
@@ -63,13 +64,16 @@ public class FileSorter {
 	}
 	
 	/**
-	 * A merge sort function, sorts the array from smallest to largest according to the comparator
+	 * A merge sort function, sorts the array from smallest to 
+	 * largest according to the comparator
 	 * specified in the constructor
-	 * @param leftIndexLimit The left index boundary of the files array (sub array index 0)
-	 * @param rightIndexLimit The right index boundary of the files array (sub array index length - 1)
+	 * @param leftIndexLimit The left index boundary of the files 
+	 * array (sub array index 0)
+	 * @param rightIndexLimit The right index boundary of the files 
+	 * array (sub array index length - 1)
 	 */
 	private void mergeSort(int leftIndexLimit, int rightIndexLimit) {
-		if(rightIndexLimit >= leftIndexLimit)
+		if(leftIndexLimit >= rightIndexLimit)
 			return;
 		int midIndex = (leftIndexLimit + rightIndexLimit) / 2;
 		mergeSort(leftIndexLimit, midIndex);
@@ -86,21 +90,25 @@ public class FileSorter {
 	 * @param rightIndexLimit The right index boundary of the files array
 	 * (sub array right right index)
 	 */
-	private void mergeArrays(int leftIndexLimit, int midIndex, int rightIndexLimit) {
+	private void mergeArrays(int leftIndexLimit, int midIndex, 
+			int rightIndexLimit) {
 		int sizeSubArrayLeft = midIndex - leftIndexLimit + 1;
 		int sizeSubArrayRight = rightIndexLimit - midIndex;
 		
-		File[] leftSubArray = Arrays.copyOfRange(files, leftIndexLimit, midIndex + 1);
-		File[] rightSubArray = Arrays.copyOfRange(files, midIndex + 1, rightIndexLimit + 1);
+		File[] leftSubArray = Arrays.copyOfRange(files, leftIndexLimit, 
+				midIndex + 1);
+		File[] rightSubArray = Arrays.copyOfRange(files, midIndex + 1, 
+				rightIndexLimit + 1);
 		int index = leftIndexLimit;
 		int leftSubArrayIndex = 0, rightSubArrayIndex = 0;
 		
 		// Actual merging of the arrays, sorted merge
-		while(leftSubArrayIndex < sizeSubArrayLeft && rightSubArrayIndex < sizeSubArrayRight) {
+		while(leftSubArrayIndex < sizeSubArrayLeft && 
+				rightSubArrayIndex < sizeSubArrayRight) {
 			File leftVal = leftSubArray[leftSubArrayIndex];
 			File rightVal = rightSubArray[rightSubArrayIndex];
 			int result = cmp.compare(leftVal, rightVal);
-			if(result > 0) {
+			if(result <= 0) {
 				files[index] = leftVal;
 				leftSubArrayIndex++;
 			} else {
@@ -110,11 +118,15 @@ public class FileSorter {
 			index++;
 		}
 		
-		for(int i = leftSubArrayIndex; i < sizeSubArrayLeft; i++, index++) 
+		for(int i = leftSubArrayIndex; i < sizeSubArrayLeft; i++) { 
 			files[index] = leftSubArray[i];
+			index++;
+		}
 		
-		for(int i = rightSubArrayIndex; i < sizeSubArrayRight; i++, index++)
+		for(int i = rightSubArrayIndex; i < sizeSubArrayRight; i++) {
 			files[index] = rightSubArray[i];
+			index++;
+		}
 	}
 	
 	/**

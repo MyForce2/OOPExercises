@@ -1,6 +1,7 @@
 package filesprocessing.filters;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.function.Predicate;
 
 /**
@@ -27,7 +28,7 @@ public class ExecutableFilter implements Predicate<File> {
 
 	@Override
 	public boolean test(File f1) {
-		return f1.canExecute() == executable;
+		return Files.isExecutable(f1.toPath()) == executable;
 	}
 	
 	

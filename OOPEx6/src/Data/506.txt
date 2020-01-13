@@ -1,0 +1,16 @@
+import b;
+boolean a = true;
+
+void foo() {
+	while(true) {
+		if (true) {
+			if(false && a) {
+				while(a) {
+					char p;
+				}
+			}
+
+		}
+	}
+	return;
+}

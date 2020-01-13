@@ -58,13 +58,12 @@ public class CommandFileLoader {
 		String name = file.getName();
 		String err = "File: " + name;
 		if(!file.exists()) {
-			System.err.println(TypeTwoException.ERROR_MESSAGE + err + " , doesn't exist");
 			throw new InvalidUsageException(TypeTwoException.PRINT_ERROR_MESSAGE 
 					+ err + " , doesn't exist\n");
 		}
 		if(!file.isFile()) {
-			System.err.println(TypeTwoException.ERROR_MESSAGE + err + " , is a directory (Not a file)");
-			throw new InvalidUsageException(TypeTwoException.PRINT_ERROR_MESSAGE + err + " , is a directory (Not a file)" + '\n');
+			throw new InvalidUsageException(TypeTwoException.PRINT_ERROR_MESSAGE 
+					+ err + " , is a directory (Not a file)" + '\n');
 		}
 	}
 	
@@ -85,8 +84,6 @@ public class CommandFileLoader {
 			}
 			reader.close();
 		} catch (IOException o) {
-			System.err.println(TypeTwoException.ERROR_MESSAGE + "Failed reading commands file : (" + file.getName() + ")"
-							+ "IOException message: " + o.getMessage());
 			throw new TypeTwoIOException(TypeTwoException.PRINT_ERROR_MESSAGE + 
 					"Failed reading commands file : (" + file.getName() + ")" +
 					"IOException message: " + o.getMessage() + "\n");
@@ -107,46 +104,51 @@ public class CommandFileLoader {
 		String[] lines = fileText.split("\n");
 		int i = 0;
 		while(i < lines.length) {
-			Section section = new Section();
+			Section section = new Section(i + 1);
 			String filterSection = lines[i];
 			if(filterSection.equals(ORDER_SECTION)) {
-				String err = TypeTwoException.PRINT_ERROR_MESSAGE + "Missing FILTER section";
-				System.err.println(TypeTwoException.ERROR_MESSAGE + err);
-				throw new FormatException(TypeTwoException.PRINT_ERROR_MESSAGE + err);
+				String err = TypeTwoException.PRINT_ERROR_MESSAGE 
+						+ "Missing FILTER section";
+				throw new FormatException(TypeTwoException.ERROR_MESSAGE + err);
 			}
 			if(!filterSection.equals(FILTER_SECTION)) {
 				String err = "Invalid section name at line : " + (i + 1);
-				System.err.println(TypeTwoException.ERROR_MESSAGE + err);
-				throw new SubSectionException(TypeTwoException.PRINT_ERROR_MESSAGE + err);
+				throw new SubSectionException(TypeTwoException.ERROR_MESSAGE + err);
 			}
 			i++;
 			if(i >= lines.length) {
 				sections.add(section);
-				break;
+				throw new FormatException(TypeTwoException.ERROR_MESSAGE 
+						+ "Missing ORDER section");
 			}
 			String filterContent = lines[i];
 			section.setFilterText(filterContent);
 			i++;
 			if(i >= lines.length) {
 				sections.add(section);
-				break;
+				throw new FormatException(TypeTwoException.ERROR_MESSAGE 
+						+ "Missing ORDER section");
 			}
 			String orderSection = lines[i];
 			if(orderSection.equals(FILTER_SECTION)) {
 				String err = "Missing ORDER section";
-				System.err.println(TypeTwoException.ERROR_MESSAGE + err);
-				throw new FormatException(TypeTwoException.PRINT_ERROR_MESSAGE + err);
+				throw new FormatException(TypeTwoException.ERROR_MESSAGE + err);
 			}
 			if(!orderSection.equals(ORDER_SECTION)) {
 				String err = "Invalid section name at line : " + (i + 1);
-				System.err.println(TypeTwoException.ERROR_MESSAGE + err);
-				throw new SubSectionException(TypeTwoException.PRINT_ERROR_MESSAGE + err);
+				throw new SubSectionException(TypeTwoException.ERROR_MESSAGE + err);
 			}
 			i++;
 			if(i >= lines.length) {
 				section.setOrderText("abs");
 				sections.add(section);
 				break;
+			}
+			if(lines[i].equals(FILTER_SECTION)) {
+				// Missing order content
+				section.setOrderText("abs");
+				sections.add(section);
+				continue;
 			}
 			section.setOrderText(lines[i]);
 			sections.add(section);

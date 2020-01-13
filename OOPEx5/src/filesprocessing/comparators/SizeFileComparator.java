@@ -16,7 +16,8 @@ public class SizeFileComparator implements Comparator<File>{
 		long size2 = f2.length();
 		int result = Long.compare(size1, size2);
 		if(result == 0) {
-			// In the case file sizes are equal, compare the files using the AbsFileComparator 
+			// In the case file sizes are equal, compare the 
+			// files using the AbsFileComparator 
 			Comparator<File> cmp = new AbsFileComparator();
 			return cmp.compare(f1, f2);
 		}

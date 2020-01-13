@@ -26,7 +26,8 @@ public class FilterFactory {
 	 * @param value The value used in the filters object constructor
 	 * @return The filter object initialized with the given value
 	 */
-	private static Predicate<File> getOneDoubleFilter(Filters filter, double value) {
+	private static Predicate<File> getOneDoubleFilter(Filters filter, 
+			double value) {
 		if(filter == Filters.GREATER_THAN)
 			return new GreaterThanFilter(value);
 		if(filter == Filters.SMALLER_THAN)
@@ -39,7 +40,8 @@ public class FilterFactory {
 	 * @param v2 The second value used in the filters object constructor
 	 * @return The filter object initialized with the given value
 	 */
-	private static Predicate<File> getTwoDoubleFilter(Filters filter, double v1, double v2) {
+	private static Predicate<File> getTwoDoubleFilter(Filters filter, 
+			double v1, double v2) {
 		if(filter == Filters.BETWEEN)
 			return new BetweenFilter(v1, v2);
 		return null;
@@ -50,7 +52,8 @@ public class FilterFactory {
 	 * @param value the value used in the filters object constructor
 	 * @return The filter object initialized with the given value
 	 */
-	private static Predicate<File> getOneStringFilter(Filters filter, String value) {
+	private static Predicate<File> getOneStringFilter(Filters filter, 
+			String value) {
 		if(filter == Filters.FILE)
 			return new FileFilter(value);
 		if(filter == Filters.CONTAINS)
@@ -67,7 +70,8 @@ public class FilterFactory {
 	 * @param value the value used in the filters object constructor
 	 * @return The filter object initialized with the given value
 	 */
-	private static Predicate<File> getOneBooleanFilter(Filters filter, boolean value) {
+	private static Predicate<File> getOneBooleanFilter(Filters filter, 
+			boolean value) {
 		if(filter == Filters.WRITABLE)
 			return new WritableFilter(value);
 		if(filter == Filters.EXECUTABLE)
@@ -82,11 +86,13 @@ public class FilterFactory {
 	 * @param params An ArrayList of parameters in their string format
 	 * @return The filter object initialized with the given values
 	 */
-	public static Predicate<File> getFilter(Filters filter, ArrayList<String> params) {
+	public static Predicate<File> getFilter(Filters filter, 
+			ArrayList<String> params) {
 		if(filter == Filters.WRITABLE || 
 				filter == Filters.EXECUTABLE || filter == Filters.HIDDEN)
 			return getOneBooleanFilter(filter, 
-					params.get(0).equals(SectionParser.TRUE_TOKEN_IN_FILTER));
+					params.get(0).equals(SectionParser.
+							TRUE_TOKEN_IN_FILTER) ? true : false);
 		if(filter == Filters.FILE || filter == Filters.CONTAINS ||
 				filter == Filters.PREFIX || filter == Filters.SUFFIX) 
 			return getOneStringFilter(filter, params.get(0));
@@ -94,7 +100,8 @@ public class FilterFactory {
 			return getOneDoubleFilter(filter, Double.valueOf(params.get(0)));
 		if(filter == Filters.BETWEEN)
 			return getTwoDoubleFilter(filter, 
-					Double.valueOf(params.get(0)), Double.valueOf(params.get(1)));
+					Double.valueOf(params.get(0)), 
+					Double.valueOf(params.get(1)));
 		return getAllFilter();
 	}
 

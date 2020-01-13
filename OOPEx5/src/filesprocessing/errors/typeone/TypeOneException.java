@@ -13,7 +13,8 @@ public class TypeOneException extends Exception {
 	 * The default error message used in the default constructor
 	 */
 	private static final String DEFAULT_ERROR_MESSAGE = 
-			"A TypeOneException has occured, the program should print a warning message and continue";
+			"A TypeOneException has occured, the "
+			+ "program should print a warning message and continue";
 	
 	/**
 	 * The default constructor uses the DEFAULT_ERROR_MESSAGE field as it's message
