@@ -2,6 +2,7 @@ package oop.ex6.main;
 
 import java.io.IOException;
 
+import oop.ex6.main.errors.SJavaException;
 import oop.ex6.main.errors.SJavaFormatException;
 import oop.ex6.parsers.initial.InitialParser;
 import oop.ex6.parsers.processing.Parser;
@@ -19,7 +20,7 @@ public class Sjavac {
 			System.out.println("Valid :)");
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (SJavaFormatException e) {
+		} catch (SJavaException e) {
 			System.err.println(e.getMessage());
 		}
 	}

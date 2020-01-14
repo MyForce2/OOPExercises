@@ -1,10 +1,15 @@
 package oop.ex6.parsers;
 
+import java.util.regex.Pattern;
+
+import oop.ex6.parsers.processing.Patterns;
+
 /**
  * An enum representing the s-java types
  */
 public enum SJavaTypes {
 	INT, DOUBLE, BOOLEAN, CHAR, STRING;
+	
 	
 	public static SJavaTypes getType(String type) {
 		switch(type) {
@@ -20,6 +25,23 @@ public enum SJavaTypes {
 			return STRING;
 		default:
 			return STRING;
+		}
+	}
+	
+	public static String getDefaultVal(SJavaTypes type) {
+		switch(type) {
+		case INT:
+			return "0";
+		case DOUBLE:
+			return "0";
+		case BOOLEAN:
+			return "true";
+		case CHAR:
+			return "\'a\'";
+		case STRING:
+			return "";
+		default:
+			return "";
 		}
 	}
 	
@@ -40,54 +62,75 @@ public enum SJavaTypes {
 		}
 	}
 	
-	public static String getRegexDeclaration(SJavaTypes type) {
+	public static Pattern getDeclarationPattern(SJavaTypes type) {
 		switch(type) {
 		case INT:
-			return "(final|)[ ]*int[ ]*[a-zA-Z_][\\w]*[ ]*;[ ]*";
+			return Patterns.INT_DECLRATION;
 		case DOUBLE:
-			return "(final|)[ ]*double[ ]*[a-zA-Z_][\\w]*[ ]*;[ ]*";
+			return Patterns.DOUBLE_DECLARATION;
 		case BOOLEAN:
-			return "(final|)[ ]*boolean[ ]*[a-zA-Z_][\\w]*[ ]*;[ ]*";
+			return Patterns.BOOLEAN_DECLARATION;
 		case CHAR:
-			return "(final|)[ ]*char[ ]*[a-zA-Z_][\\w]*[ ]*;[ ]*";
+			return Patterns.CHAR_DECLARATION;
 		case STRING:
-			return "(final|)[ ]*String[ ]*[a-zA-Z_][\\w]*[ ]*;[ ]*";
+			return Patterns.STRING_DECLARATION;
 		default:
-			return "";
+			return null;
 		}
 	}
 	
-	public static String getRegexDeclarationAndAssigment(SJavaTypes type) {
+	public static Pattern getDeclarationLiteralAssignmentPattern(SJavaTypes type) {
 		switch(type) {
 		case INT:
-			return "(final|)[ ]*int[ ]*[a-zA-Z_][\\w]*[ ]*=[ ]*([\\d]+|[a-zA-Z_][\\w]*)[ ]*;[ ]*";
+			return Patterns.INT_DECLARATION_LITERAL_ASSIGNMENT;
 		case DOUBLE:
-			return "(final|)[ ]*double[ ]*[a-zA-Z_][\\w]*[ ]*=[ ]*[\\d]+[.]?[\\d]*[ ]*;[ ]*";
+			return Patterns.DOUBLE_DECLARATION_LITERAL_ASSIGNMENT;
 		case BOOLEAN:
-			return "(final|)[ ]*boolean[ ]*[a-zA-Z_][\\w]*[ ]*=[ ]*(false|true)[ ]*;[ ]*";
+			return Patterns.BOOLEAN_DECLARATION_LITERAL_ASSIGNMENT;
 		case CHAR:
-			return "(final|)[ ]*char[ ]*[a-zA-Z_][\\w]*[ ]*=[ ]*'[\\w\\W]?'[ ]*;[ ]*";
+			return Patterns.CHAR_DECLARATION_LITERAL_ASSIGNMENT;
 		case STRING:
-			return "(final|)[ ]*String[ ]*[a-zA-Z_][\\w]*[ ]*=[ ]*\"[\\w\\W]*]\"[ ]*;[ ]*";
+			return Patterns.STRING_DECLARATION_LITERAL_ASSIGNMENT;
 		default:
-			return "";
+			return null;
 		}
 	}
 	
-	public static String getRegexAssigment(SJavaTypes type) {
+	public static Pattern getLiteralAssignmentPattern(SJavaTypes type) {
 		switch(type) {
 		case INT:
-			return "[ ]*[a-zA-Z_][\\w]*[ ]*=[ ]*[\\d]+[ ]*;[ ]*";
+			return Patterns.INT_LITERAL_ASSIGNMENT;
 		case DOUBLE:
-			return "[ ]*[a-zA-Z_][\\w]*[ ]*=[ ]*[\\d]+[.]?[\\d]*[ ]*;[ ]*";
+			return Patterns.DOUBLE_LITERAL_ASSIGNMENT;
 		case BOOLEAN:
-			return "[ ]*[a-zA-Z_][\\w]*[ ]*=[ ]*(false|true)[ ]*;[ ]*";
+			return Patterns.BOOLEAN_LITERAL_ASSIGNMENT;
 		case CHAR:
-			return "[ ]*[a-zA-Z_][\\w]*[ ]*=[ ]*'[\\w\\W]?'[ ]*;[ ]*";
+			return Patterns.CHAR_LITERAL_ASSIGNMENT;
 		case STRING:
-			return "[ ]*[a-zA-Z_][\\w]*[ ]*=[ ]*\"[\\w\\W]*]\"[ ]*;[ ]*";
+			return Patterns.STRING_LITERAL_ASSIGNMENT;
 		default:
-			return "";
+			return null;
 		}
+	}
+	
+	public static Pattern getDeclarationAssignmentPattern(SJavaTypes type) {
+		switch(type) {
+		case INT:
+			return Patterns.INT_DECLARATION_ASSIGNMENT;
+		case DOUBLE:
+			return Patterns.DOUBLE_DECLARATION_ASSIGNMENT;
+		case BOOLEAN:
+			return Patterns.BOOLEAN_DECLARATION_ASSIGNMENT;
+		case CHAR:
+			return Patterns.CHAR_DECLARATION_ASSIGNMENT;
+		case STRING:
+			return Patterns.STRING_DECLARATION_ASSIGNMENT;
+		default:
+			return null;
+		}
+	}
+	
+	public static Pattern getAssignmentPattern() {
+		return Patterns.ASSIGNMENT;
 	}
 }
