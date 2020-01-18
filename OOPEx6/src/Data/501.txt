@@ -1,24 +1,8 @@
-// some int member
-int a = 2, b = 3;
 
-a = 3;
 
-double num = .2;
-
-int d = 2;
-String k = "";
-
-boolean test = k;
-
-//Another int member
-final int c = 2;
-
-// now - a string member
-final String int = "2" , t = int;
-
-void boo(int a, int b, String s) {
+    void too(int a  ,   int b   ,   String s   )  {
 	if (true) {
-		boo(1,2,"hello");
+		boo("1" ,2,"hello");
 		while (false) {
 			soo(true);
 		}
@@ -26,6 +10,23 @@ void boo(int a, int b, String s) {
 	return;
 }
 
-void soo(boolean b) {
+void boo(String str, boolean a, String c) {
+	a = .2;
 	return;
 }
+
+final int a = 2;
+final int ____ = 2;
+
+void soo(boolean var) { 
+	int b = ____;
+	String c = "2";
+	double testDouble = 2.5;
+	int testInt = -3;
+	if(a || b || true && 3.2) {
+	
+	}
+	boo("Hello", -2, "true");
+	return;
+}
+

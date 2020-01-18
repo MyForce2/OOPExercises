@@ -1,0 +1,48 @@
+nadav223
+
+
+
+Error Handling:
+I chose to use the exception mechanism to handled errors in the SJava code file,
+it made it much easier to throw errors all the way back to the main call, and worked quite
+well when testing various features since whenever an exception occurs you have a textual representation
+of what happened and the stack trace to tell you where that exception occurred.
+
+Object Oriented Design, Adding Features:
+I decided to divide to code components into their representative classes
+meaning a Method class to represent a method and a variable class for a variable
+where the Scope class which interacts with both glues the logic together.
+This design sort of leaned towards a more procedural type instead of many small components.
+In my opinion that made more sense, a lot of components share logic and need other components data
+so it made more sense using a more Main objects that handles a lot of logic, which also makes it easier to add more 
+features in a way, until a certain size is reached.
+
+Adding Features:
+Let's say I was needed to add a float variable to this code, that would make me add a few more Regex Patterns
+but not much more other than that.
+Variable class should handle the float type but other than that most of the code is generic.
+Adding different method types wouldn't cause a lot of changes, adding a few more Regex Patterns,
+and support the actual return value from a function isn't very different than the current mechanism that actually simulates calling
+methods.
+Adding methods of standard java, means adding more pre known methods, assuming we are talking about void methods, this change requires 
+almost no change of code, in the case we are talking about different types, that would again cause a change of regex patterns and 
+the method class and scope class.
+
+
+Main Regular Expression used in this expression:
+I used a lot of different regular expression in this exercise in this exercise, but
+most of them used the same format, verifying a variable declaration and assignment textual line
+which made it much more easier to know what kind of code line you were dealing with.
+The other Regular Expression that was used a lot, is the literal values regex, sometimes literal values
+could appear as variable names, so it was quite crucial to constantly check if were facing a literal value
+so that we could handle that scenario properly.
+
+General Design of the project:
+This project was designed using a lot of different if and branches, which isn't the best design, and assuming more was required
+I would have probably taken a different approach (An Abstract Syntax tree) for example, The project uses oop and masks most of process
+away from the programmer, so that when the main function called, there is a little to do and then the program works fine.
+Most of the code is concentrated in the Scope / Parser classes, since the scope class handles most of the logic which occurs during the scope code,
+most of the code is in inside of a given scope, And the parser class runs various checks and then orders the other components to perform their part,
+e.g logic wise occurs in the scope class, while variable / method classes are more of a format classes and POD classes, while parser performs a large
+margin of the code formatting testing.
+

@@ -6,8 +6,12 @@ package oop.ex6.parsers;
 public enum SJavaKeyWords {
 	VOID, FINAL, IF, WHILE, TRUE, FALSE, RETURN;
 	
-	public static SJavaKeyWords getType(String type) {
-		switch(type) {
+	/**
+	 * @param keyWord The textual representation of the SJava key word
+	 * @return An SJavaKeyWords enum value
+	 */
+	public static SJavaKeyWords getType(String keyWord) {
+		switch(keyWord) {
 		case "void":
 			return VOID;
 		case "final":
@@ -27,8 +31,12 @@ public enum SJavaKeyWords {
 		}
 	}
 	
-	public static String getType(SJavaKeyWords type) {
-		switch(type) {
+	/**
+	 * @param keyWord An SJavaKeyWords enum value
+	 * @return The textual representation of the SJavaKeyWords key words
+	 */
+	public static String getType(SJavaKeyWords keyWord) {
+		switch(keyWord) {
 		case VOID:
 			return "void";
 		case FINAL:

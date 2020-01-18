@@ -11,6 +11,10 @@ public enum SJavaTypes {
 	INT, DOUBLE, BOOLEAN, CHAR, STRING;
 	
 	
+	/**
+	 * @param type A textual representation of any SJavaType
+	 * @return The SJavaTypes enum value of the given string
+	 */
 	public static SJavaTypes getType(String type) {
 		switch(type) {
 		case "int":
@@ -28,6 +32,11 @@ public enum SJavaTypes {
 		}
 	}
 	
+	/**
+	 * @param type A SJavaType enum value
+	 * @return The textual representation of the given SJavaType enum value
+	 * default value
+	 */
 	public static String getDefaultVal(SJavaTypes type) {
 		switch(type) {
 		case INT:
@@ -45,6 +54,10 @@ public enum SJavaTypes {
 		}
 	}
 	
+	/**
+	 * @param type A SJavaType enum value
+	 * @return The textual of the given SJavaType enum value 
+	 */
 	public static String getType(SJavaTypes type) {
 		switch(type) {
 		case INT:
@@ -62,6 +75,10 @@ public enum SJavaTypes {
 		}
 	}
 	
+	/**
+	 * @param type A SJavaType enum value
+	 * @return The Declaration pattern for the given type
+	 */
 	public static Pattern getDeclarationPattern(SJavaTypes type) {
 		switch(type) {
 		case INT:
@@ -79,6 +96,11 @@ public enum SJavaTypes {
 		}
 	}
 	
+	/**
+	 * @param type A SJavaType enum value
+	 * @return The declaration and assignment to a literal pattern for
+	 * the given type
+	 */
 	public static Pattern getDeclarationLiteralAssignmentPattern(SJavaTypes type) {
 		switch(type) {
 		case INT:
@@ -96,6 +118,11 @@ public enum SJavaTypes {
 		}
 	}
 	
+	/**
+	 * @param type A SJavaType enum value
+	 * @return The literal assignment pattern for a variable of the given
+	 * type
+	 */
 	public static Pattern getLiteralAssignmentPattern(SJavaTypes type) {
 		switch(type) {
 		case INT:
@@ -113,6 +140,11 @@ public enum SJavaTypes {
 		}
 	}
 	
+	/**
+	 * @param type A SJavaType enum value
+	 * @return The declaration and assignment pattern for a variable
+	 * of the given type
+	 */
 	public static Pattern getDeclarationAssignmentPattern(SJavaTypes type) {
 		switch(type) {
 		case INT:
@@ -130,6 +162,30 @@ public enum SJavaTypes {
 		}
 	}
 	
+	/**
+	 * @param type A SJavaType enum value
+	 * @return The literal pattern for the given type
+	 */
+	public static Pattern getLiteralPattern(SJavaTypes type) {
+		switch(type) {
+		case INT:
+			return Patterns.INT_VALUE;
+		case DOUBLE:
+			return Patterns.DOUBLE_VALUE;
+		case BOOLEAN:
+			return Patterns.BOOLEAN_VALUE;
+		case CHAR:
+			return Patterns.CHAR_VALUE;
+		case STRING:
+			return Patterns.STRING_VALUE;
+		default:
+			return null;
+		}
+	}
+	
+	/**
+	 * @return The assignment pattern for any variable to another variable
+	 */
 	public static Pattern getAssignmentPattern() {
 		return Patterns.ASSIGNMENT;
 	}
